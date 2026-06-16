@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://duhl32v8qqbw2"
+path="res://.godot/imported/Ólafur Arnalds - Near Light (Official Music Video).mp3-b7755c269cbd1d8147d45b3a4ad681fe.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Ólafur Arnalds - Near Light (Official Music Video).mp3"
+dest_files=["res://.godot/imported/Ólafur Arnalds - Near Light (Official Music Video).mp3-b7755c269cbd1d8147d45b3a4ad681fe.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

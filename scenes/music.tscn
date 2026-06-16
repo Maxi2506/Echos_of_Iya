@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqcxghfj1g2f2"]
+
+[ext_resource type="AudioStream" uid="uid://duhl32v8qqbw2" path="res://assets/music/Ólafur Arnalds - Near Light (Official Music Video).mp3" id="1_05ggv"]
+
+[node name="Music" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_05ggv")
+autoplay = true

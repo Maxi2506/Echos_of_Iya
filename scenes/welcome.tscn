@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhhpegnilm7ug"]
+
+[ext_resource type="Script" uid="uid://bler3tnj2nc4j" path="res://scenes/welcome.gd" id="1_uety2"]
+[ext_resource type="Texture2D" uid="uid://cv6hoednc1hjs" path="res://assets/img/escenario/Inicio/Portada3.png" id="2_25jh2"]
+[ext_resource type="FontFile" uid="uid://d2yiyuplbu5ub" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_b1rs5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1rs5"]
+bg_color = Color(0.6, 0.6, 0.6, 0.027451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wm3rh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1k3ta"]
+color = Color(0, 0, 0, 0)
+
+[node name="Welcome" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uety2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("2_25jh2")
+expand_mode = 1
+
+[node name="ContenedorPrincipal" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 517.0
+offset_top = 376.0
+offset_right = 706.0
+offset_bottom = 571.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Start" type="Button" parent="ContenedorPrincipal"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 4.82
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("3_b1rs5")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1rs5")
+text = "Start"
+icon_alignment = 1
+
+[node name="Load" type="Button" parent="ContenedorPrincipal"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b1rs5")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_wm3rh")
+text = "Load
+"
+
+[node name="Options" type="Button" parent="ContenedorPrincipal"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 4.82
+localize_numeral_system = false
+theme_override_fonts/font = ExtResource("3_b1rs5")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxFlat_b1rs5")
+text = "Options"
+icon_alignment = 1
+
+[node name="Exit" type="Button" parent="ContenedorPrincipal"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_b1rs5")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxLine_1k3ta")
+text = "Exit"
+
+[connection signal="pressed" from="ContenedorPrincipal/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Options" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Exit" to="." method="_on_exit_pressed"]

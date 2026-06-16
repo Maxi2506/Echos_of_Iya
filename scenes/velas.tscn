@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cov3oavw4bufa"]
+
+[ext_resource type="Texture2D" uid="uid://d4nt61u6r6ei4" path="res://assets/img/escenario/Elements/anim_lights.png" id="1_dvlvh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_704pa"]
+atlas = ExtResource("1_dvlvh")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27yxb"]
+atlas = ExtResource("1_dvlvh")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77vcb"]
+atlas = ExtResource("1_dvlvh")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m1jm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_704pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27yxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77vcb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="velas" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m1jm2")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.0146073

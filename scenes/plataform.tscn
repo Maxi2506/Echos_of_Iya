@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://7vmul2ukl1cx"]
+
+[ext_resource type="Texture2D" uid="uid://bi77dkrmnulo0" path="res://assets/img/escenario/plataforma flotante1.png" id="1_s5nw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5nw7"]
+size = Vector2(64, 10.375)
+
+[node name="plataform" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.198758, 0.160156)
+texture = ExtResource("1_s5nw7")
+region_enabled = true
+region_rect = Rect2(1, 0, 322, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.1875)
+shape = SubResource("RectangleShape2D_s5nw7")
+one_way_collision = true

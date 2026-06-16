@@ -1,0 +1,224 @@
+[gd_scene load_steps=21 format=3 uid="uid://fpc6e7fxqeqk"]
+
+[ext_resource type="Texture2D" uid="uid://cmdsdrcamghli" path="res://assets/Items/free_crystal_dark_frakassets/crystal_dark_32x32_12f_20d_no_border - prueba.png" id="1_hhivp"]
+[ext_resource type="Script" uid="uid://d0g3xvboxbybq" path="res://scripts/cristal.gd" id="1_qjblc"]
+[ext_resource type="AudioStream" uid="uid://bx6lof4csml6s" path="res://assets/music/item1.mp3" id="3_lnv63"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjblc"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnv63"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs2wp"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7s6mi"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gohg3"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y0ek"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcvvo"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_motxs"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_misr2"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htjmb"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x7t6"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6egt"]
+atlas = ExtResource("1_hhivp")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n3qhe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjblc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnv63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs2wp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7s6mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gohg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y0ek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcvvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_motxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_misr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htjmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x7t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6egt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnv63"]
+size = Vector2(4, 14)
+
+[sub_resource type="Animation" id="Animation_rs2wp"]
+resource_name = "pickup"
+step = 0.0033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickUpSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.749175),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7s6mi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickUpSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gohg3"]
+_data = {
+&"RESET": SubResource("Animation_7s6mi"),
+&"pickup": SubResource("Animation_rs2wp")
+}
+
+[node name="cristal" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_qjblc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-9.53674e-07, -7.25)
+scale = Vector2(0.40625, 0.453125)
+sprite_frames = SubResource("SpriteFrames_n3qhe")
+autoplay = "default"
+frame_progress = 0.427925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_lnv63")
+
+[node name="PickUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_lnv63")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gohg3")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
