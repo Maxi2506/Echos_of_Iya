@@ -6,6 +6,9 @@ extends Area2D
 # Evita contarlo dos veces y permite saber qué cristales faltan al guardar la partida
 var collected := false
 
+func _ready() -> void:
+	add_to_group("crystals")
+
 func _on_body_entered(_body):
 	if collected:
 		return

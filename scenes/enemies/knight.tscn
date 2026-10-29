@@ -1,0 +1,346 @@
+[gd_scene load_steps=50 format=3 uid="uid://bwnsf87h20ooj"]
+
+[ext_resource type="Script" uid="uid://bjp1rnchkurdu" path="res://scripts/enemies/enemy.gd" id="1_knig"]
+[ext_resource type="PackedScene" uid="uid://5gxckvplnwm2" path="res://scenes/killzone.tscn" id="2_knig"]
+[ext_resource type="Texture2D" uid="uid://cnnwi87r5dnis" path="res://assets/img/enemigos/yokai_knight/_Idle.png" id="3_knig"]
+[ext_resource type="Texture2D" uid="uid://bn1ljab8t7apn" path="res://assets/img/enemigos/yokai_knight/_Run.png" id="4_knig"]
+[ext_resource type="Texture2D" uid="uid://6ty62bubokg6" path="res://assets/img/enemigos/yokai_knight/_Attack.png" id="5_knig"]
+[ext_resource type="Texture2D" uid="uid://ipnep5dx1h8y" path="res://assets/img/enemigos/yokai_knight/_Hit.png" id="6_knig"]
+[ext_resource type="Texture2D" uid="uid://bgdgdrb33tgh6" path="res://assets/img/enemigos/yokai_knight/_Death.png" id="7_knig"]
+[ext_resource type="AudioStream" uid="uid://iufy2hgq34gb" path="res://assets/sfx/sword_slash.wav" id="8_knig"]
+[ext_resource type="AudioStream" uid="uid://g3hdfbjj52lo" path="res://assets/sfx/enemy_hit.wav" id="9_knig"]
+[ext_resource type="AudioStream" uid="uid://iawqd15qku2d" path="res://assets/sfx/enemy_death.wav" id="10_knig"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle0"]
+atlas = ExtResource("3_knig")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("3_knig")
+region = Rect2(120, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("3_knig")
+region = Rect2(240, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("3_knig")
+region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle4"]
+atlas = ExtResource("3_knig")
+region = Rect2(480, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle5"]
+atlas = ExtResource("3_knig")
+region = Rect2(600, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle6"]
+atlas = ExtResource("3_knig")
+region = Rect2(720, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle7"]
+atlas = ExtResource("3_knig")
+region = Rect2(840, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle8"]
+atlas = ExtResource("3_knig")
+region = Rect2(960, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle9"]
+atlas = ExtResource("3_knig")
+region = Rect2(1080, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run0"]
+atlas = ExtResource("4_knig")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run1"]
+atlas = ExtResource("4_knig")
+region = Rect2(120, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run2"]
+atlas = ExtResource("4_knig")
+region = Rect2(240, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run3"]
+atlas = ExtResource("4_knig")
+region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run4"]
+atlas = ExtResource("4_knig")
+region = Rect2(480, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run5"]
+atlas = ExtResource("4_knig")
+region = Rect2(600, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run6"]
+atlas = ExtResource("4_knig")
+region = Rect2(720, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run7"]
+atlas = ExtResource("4_knig")
+region = Rect2(840, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run8"]
+atlas = ExtResource("4_knig")
+region = Rect2(960, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run9"]
+atlas = ExtResource("4_knig")
+region = Rect2(1080, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack0"]
+atlas = ExtResource("5_knig")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack1"]
+atlas = ExtResource("5_knig")
+region = Rect2(120, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack2"]
+atlas = ExtResource("5_knig")
+region = Rect2(240, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_attack3"]
+atlas = ExtResource("5_knig")
+region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hit0"]
+atlas = ExtResource("6_knig")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death0"]
+atlas = ExtResource("7_knig")
+region = Rect2(0, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death1"]
+atlas = ExtResource("7_knig")
+region = Rect2(120, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death2"]
+atlas = ExtResource("7_knig")
+region = Rect2(240, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death3"]
+atlas = ExtResource("7_knig")
+region = Rect2(360, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death4"]
+atlas = ExtResource("7_knig")
+region = Rect2(480, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death5"]
+atlas = ExtResource("7_knig")
+region = Rect2(600, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death6"]
+atlas = ExtResource("7_knig")
+region = Rect2(720, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death7"]
+atlas = ExtResource("7_knig")
+region = Rect2(840, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death8"]
+atlas = ExtResource("7_knig")
+region = Rect2(960, 0, 120, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death9"]
+atlas = ExtResource("7_knig")
+region = Rect2(1080, 0, 120, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_main"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle9")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run9")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_attack3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hit0")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death9")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="Shape_body"]
+size = Vector2(16, 36)
+
+[sub_resource type="RectangleShape2D" id="Shape_contact"]
+size = Vector2(14, 32)
+
+[sub_resource type="RectangleShape2D" id="Shape_attack"]
+size = Vector2(40, 30)
+
+[node name="knight" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_knig")
+max_health = 2
+patrol_speed = 40.0
+chase_speed = 75.0
+detect_range = 130.0
+attack_range = 34.0
+attack_active_frames = PackedInt32Array(1, 2)
+attack_cooldown = 1.2
+faces_right = true
+sprite_offset_x = 4.0
+body_half_width = 8.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -38.66)
+scale = Vector2(0.79, 0.96)
+sprite_frames = SubResource("SpriteFrames_main")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -18.0)
+shape = SubResource("Shape_body")
+
+[node name="killzone" parent="." instance=ExtResource("2_knig")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, -16.0)
+shape = SubResource("Shape_contact")
+
+[node name="AttackArea" parent="." instance=ExtResource("2_knig")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(24, -16)
+shape = SubResource("Shape_attack")
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_knig")
+volume_db = -6.0
+pitch_scale = 0.8
+bus = &"SFX"
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_knig")
+bus = &"SFX"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_knig")
+volume_db = -6.0
+bus = &"SFX"

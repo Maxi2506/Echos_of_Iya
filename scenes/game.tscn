@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dvto6if53vcm6" path="res://assets/img/escenario/Elements/lanterns/Lantern 1/Silver/Orange Light/Lantern 1 - Silver and Orange_004.png" id="5_bhx41"]
 [ext_resource type="PackedScene" uid="uid://fpc6e7fxqeqk" path="res://scenes/cristal.tscn" id="6_p57ef"]
 [ext_resource type="Texture2D" uid="uid://do4veu83r403f" path="res://assets/img/escenario/environment.png" id="6_sww3w"]
-[ext_resource type="PackedScene" uid="uid://bwnsf87h20ooj" path="res://scenes/yokai_knight.tscn" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://bwnsf87h20ooj" path="res://scenes/enemies/knight.tscn" id="9_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://cpp2ye854frp6" path="res://assets/img/escenario/Background1/conjunto_1_luna.png" id="9_dinhu"]
 [ext_resource type="Texture2D" uid="uid://du6uk788ary08" path="res://assets/img/escenario/Background1/conjunto_2_nubes.png" id="10_kvuet"]
 [ext_resource type="Texture2D" uid="uid://b0s45f8y6qgho" path="res://assets/img/escenario/Elements/lanterns/Bonus Content - Lamp Posts and Chains/Lamp Posts - Silver/Lamp Post 1 SHORT.png" id="11_qnb83"]

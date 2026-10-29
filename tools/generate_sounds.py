@@ -84,10 +84,25 @@ def player_hurt():
     save('player_hurt.wav', out)
 
 
+def enemy_hit():
+    """Golpe seco de la espada contra un enemigo."""
+    random.seed(11)
+    n = int(RATE * 0.12)
+    out, lp = [], 0.0
+    for i in range(n):
+        t = i / n
+        lp += 0.35 * (random.uniform(-1, 1) - lp)
+        tone = math.sin(2 * math.pi * (180 - 100 * t) * i / RATE)
+        env = min(1, t / 0.01) * (1 - t) ** 3
+        out.append((lp * 0.9 + tone * 0.6) * env)
+    save('enemy_hit.wav', out)
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     sword_slash()
     enemy_death()
     campfire_ignite()
     player_hurt()
+    enemy_hit()
     print('Sonidos generados.')

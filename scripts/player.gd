@@ -19,6 +19,12 @@ const KNOCKBACK = Vector2(170, -190)
 const STUN_TIME = 0.3 # Segundos sin control durante el empujón
 # Cuánto puede bajar por debajo del borde inferior de la cámara antes de morir por caída
 const FALL_MARGIN = 16.0
+# Margen para saltar justo después de salir de un borde, y para que un salto apretado
+# un poquito antes de tocar el piso igual cuente
+const COYOTE_TIME = 0.1
+const JUMP_BUFFER_TIME = 0.12
+# Al soltar el salto antes de tiempo, la subida se corta (salto corto)
+const JUMP_CUT = 0.45
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
@@ -27,6 +33,10 @@ const FALL_MARGIN = 16.0
 @onready var camera: Camera2D = get_node_or_null("Camera2D")
 
 var is_attacking := false
+# Caminando con Shift: los enemigos te ven solo de muy cerca
+var is_sneaking := false
+var _coyote_left := 0.0
+var _jump_buffer_left := 0.0
 var health := MAX_HEALTH
 var is_dead := false
 var invulnerable := false
@@ -56,20 +66,28 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# ATAQUE: tecla X (acción "attack")
-	if Input.is_action_just_pressed("attack") and is_on_floor() and not is_attacking:
+	# ATAQUE: tecla X (acción "attack"). En el aire también se puede.
+	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
-		velocity.x = 0
+		if is_on_floor():
+			velocity.x = 0
 		attack_shape.set_deferred("disabled", false)
 		attack_sound.play()
 
-	# SALTO: acción nativa "ui_accept" (barra espaciadora)
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not is_attacking:
+	# SALTO: barra espaciadora (acción "jump"), con margen de coyote y de anticipación
+	_coyote_left = COYOTE_TIME if is_on_floor() else _coyote_left - delta
+	_jump_buffer_left = JUMP_BUFFER_TIME if Input.is_action_just_pressed("jump") else _jump_buffer_left - delta
+	if _jump_buffer_left > 0 and _coyote_left > 0 and not (is_attacking and is_on_floor()):
 		velocity.y = JUMP_VELOCITY
+		_jump_buffer_left = 0
+		_coyote_left = 0
+	if Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y *= JUMP_CUT
 
 	var direction := Input.get_axis("ui_left", "ui_right")
 	# Caminar en sigilo con Shift, solo tocando el suelo
-	var is_walking: bool = Input.is_action_pressed("walk") and is_on_floor()
+	is_sneaking = Input.is_action_pressed("walk")
+	var is_walking: bool = is_sneaking and is_on_floor()
 
 	if not is_attacking:
 		if direction > 0:
@@ -86,6 +104,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	elif is_on_floor():
 		velocity.x = 0
+	else:
+		velocity.x = direction * SPEED # en el aire se puede seguir moviendo mientras ataca
 
 	if is_attacking:
 		animated_sprite.play("attack")
@@ -199,5 +219,5 @@ func _on_frame_changed() -> void:
 
 # La hitbox solo detecta cuerpos de la capa "enemigos" (capa 3)
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
-	if body.has_method("morir"):
-		body.morir()
+	if body.has_method("take_hit"):
+		body.take_hit(global_position)
