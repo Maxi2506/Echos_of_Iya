@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Echoes of Iya"
 run/main_scene="uid://dhhpegnilm7ug"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -29,7 +29,6 @@ DebugTools="*res://scripts/debug_tools.gd"
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
 
 [input]
 
