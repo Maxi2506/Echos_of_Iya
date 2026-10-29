@@ -1,0 +1,5 @@
+Assets que el juego no usa (fondos, personajes y linternas alternativos, archivos de
+Photoshop, referencias). Están acá para no perderlos, pero el archivo .gdignore hace que
+Godot no los importe ni los incluya en el juego exportado.
+
+Para usar alguno: moverlo de vuelta a assets/ (Godot lo importa solo).

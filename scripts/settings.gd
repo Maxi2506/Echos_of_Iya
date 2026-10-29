@@ -49,6 +49,7 @@ const SPANISH = {
 	"Total deaths": "Muertes totales",
 	"Total time": "Tiempo total",
 	"Map": "Mapa",
+	"Gamepad: A jump · X attack · LB stealth · Start pause · Select map": "Joystick: A saltar · X atacar · LB sigilo · Start pausa · Select mapa",
 	"M or Esc to close": "M o Esc para cerrar",
 	"You": "Vos",
 	"Campfire": "Fogata",
