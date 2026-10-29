@@ -326,7 +326,7 @@ func build_level_1() -> void:
 	# Si el nivel ya se generó antes, se borra lo agregado para no duplicarlo
 	for child in root.get_children():
 		if child.name in ["Cristal", "Yokai_Knight", "Cristales", "Enemigos", "Decoracion", "Plataformas",
-				"Secretos", "LevelComplete"] or String(child.name).begins_with("meta_"):
+				"Secretos", "LevelComplete", "MapScreen"] or String(child.name).begins_with("meta_"):
 			root.remove_child(child)
 			child.free()
 	var old_fire_container := root.get_node_or_null("Fogatas")
@@ -433,10 +433,10 @@ func build_level_1() -> void:
 	root.get_node("Player").position = Vector2(100, 119)
 
 	# 6) Pantalla de fin de nivel y datos del nivel
-	if root.get_node_or_null("LevelComplete") == null:
-		var lc: Node = load("res://scenes/level/level_complete.tscn").instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
-		root.add_child(lc)
-		lc.owner = root
+	for ui in ["res://scenes/level/level_complete.tscn", "res://scenes/level/map_screen.tscn"]:
+		var node: Node = load(ui).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		root.add_child(node)
+		node.owner = root
 	root.set("level_number", 1)
 	root.set("level_title", "The Valley")
 	root.set("next_level", LEVEL_2)
@@ -506,7 +506,7 @@ func build_level_2() -> void:
 	player.position = start if start != null else Vector2(64, 64)
 
 	for ui in ["res://scenes/hud.tscn", "res://scenes/pause_menu.tscn", "res://scenes/death_screen.tscn",
-			"res://scenes/level/level_complete.tscn"]:
+			"res://scenes/level/level_complete.tscn", "res://scenes/level/map_screen.tscn"]:
 		var node: Node = load(ui).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 		root.add_child(node)
 		node.owner = root

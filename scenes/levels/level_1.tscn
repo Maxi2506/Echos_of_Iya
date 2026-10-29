@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://b7o8ady7oujre"]
+[gd_scene load_steps=68 format=4 uid="uid://b7o8ady7oujre"]
 
 [ext_resource type="Texture2D" uid="uid://bhr814jc03g2t" path="res://assets/img/escenario/Elements/Salt.png" id="1_kvuet"]
 [ext_resource type="PackedScene" uid="uid://5gxckvplnwm2" path="res://scenes/killzone.tscn" id="1_u5sy4"]
@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://bteiief87kaii" path="res://scenes/enemies/snake.tscn" id="35_4u6u3"]
 [ext_resource type="PackedScene" uid="uid://cv6jfut6csd2" path="res://scenes/enemies/frog.tscn" id="37_yvv08"]
 [ext_resource type="PackedScene" uid="uid://x006kh6ex0x4" path="res://scenes/enemies/kitsune.tscn" id="40_20f45"]
+[ext_resource type="PackedScene" uid="uid://73gs1mgiy61g" path="res://scenes/level/map_screen.tscn" id="41_svqqs"]
 [ext_resource type="PackedScene" uid="uid://dr5wph81ngj5b" path="res://scenes/level/goal_torii.tscn" id="43_to6s4"]
 [ext_resource type="PackedScene" uid="uid://cy8wj3i6fnhdc" path="res://scenes/level/level_complete.tscn" id="45_4gp5p"]
 
@@ -6543,10 +6544,10 @@ _data = {
 &"new_animation_2": SubResource("Animation_rysoc")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dp4fg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2to4m"]
 size = Vector2(156, 60)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_svqqs"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc3v0"]
 size = Vector2(76, 44)
 
 [node name="Game" type="Node2D"]
@@ -6728,7 +6729,7 @@ collision_enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Secretos/secreto_01"]
 position = Vector2(1696, 112)
-shape = SubResource("RectangleShape2D_dp4fg")
+shape = SubResource("RectangleShape2D_2to4m")
 
 [node name="FoundSound" type="AudioStreamPlayer" parent="Secretos/secreto_01"]
 stream = ExtResource("32_wk6bc")
@@ -6747,7 +6748,7 @@ collision_enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Secretos/secreto_02"]
 position = Vector2(4136, 40)
-shape = SubResource("RectangleShape2D_svqqs")
+shape = SubResource("RectangleShape2D_kc3v0")
 
 [node name="FoundSound" type="AudioStreamPlayer" parent="Secretos/secreto_02"]
 stream = ExtResource("32_wk6bc")
@@ -6909,3 +6910,5 @@ position = Vector2(4040, 56)
 position = Vector2(3944, 64)
 
 [node name="LevelComplete" parent="." instance=ExtResource("45_4gp5p")]
+
+[node name="MapScreen" parent="." instance=ExtResource("41_svqqs")]

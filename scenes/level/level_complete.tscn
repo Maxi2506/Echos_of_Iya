@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy8wj3i6fnhdc"]
 
-[ext_resource type="Script" path="res://scripts/level/level_complete.gd" id="1_lc"]
+[ext_resource type="Script" uid="uid://c56sqcwjqeote" path="res://scripts/level/level_complete.gd" id="1_lc"]
 [ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
 [ext_resource type="AudioStream" uid="uid://b3xy1wiqp6ux1" path="res://assets/sfx/level_complete.wav" id="3_sound"]
 

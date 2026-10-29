@@ -2,6 +2,8 @@ extends CanvasLayer
 ## Menú de pausa. Se abre con Escape, con P o con el botón "II" del HUD.
 ## Tiene process_mode = Always para seguir funcionando con el juego pausado.
 
+signal map_requested
+
 const WELCOME_SCENE_PATH = "res://scenes/welcome.tscn"
 
 @onready var resume_button: Button = $Menu/Resume
@@ -43,6 +45,10 @@ func close() -> void:
 
 func _on_resume_pressed() -> void:
 	close()
+
+func _on_map_pressed() -> void:
+	close()
+	map_requested.emit()
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false

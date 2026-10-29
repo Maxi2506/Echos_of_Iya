@@ -19,11 +19,15 @@ var restore_run := false
 # Estadísticas de la partida: muertes y tiempo del nivel actual, y totales de los anteriores
 var run := {}
 
+# Zonas del mapa ya recorridas: ruta del nivel -> {"x,y": true}
+var explored := {}
+
 func _ready() -> void:
 	new_run()
 
 func new_run() -> void:
 	run = {"deaths": 0, "time": 0.0, "total_deaths": 0, "total_time": 0.0}
+	explored = {}
 
 ## Al terminar un nivel, suma sus muertes y tiempo a los totales y reinicia los del nivel
 func finish_level() -> void:

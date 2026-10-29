@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://73gs1mgiy61g"]
+
+[ext_resource type="Script" uid="uid://bdn7litc6vdo8" path="res://scripts/level/map_screen.gd" id="1_map"]
+[ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
+
+[node name="MapScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+script = ExtResource("1_map")
+
+[node name="Fondo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="Canvas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 88.0
+offset_right = -48.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Legend" type="HBoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -84.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_theme")
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1

@@ -25,12 +25,14 @@ extends Node2D
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var death_screen: CanvasLayer = $DeathScreen
 @onready var level_complete: CanvasLayer = $LevelComplete
+@onready var map_screen: CanvasLayer = $MapScreen
 
 # Ruta (dentro del nivel) de la fogata donde se reaparece
 var current_checkpoint := ""
 var total_crystals := 0
 var total_enemies := 0
 var total_secrets := 0
+var _explored: Dictionary
 
 func _ready() -> void:
 	# Por si se salió al menú en medio de un efecto de cámara lenta
@@ -49,6 +51,8 @@ func _ready() -> void:
 		add_child(darkness)
 		player.get_node("Linterna").enabled = true
 
+	if not SaveGame.explored.has(scene_file_path):
+		SaveGame.explored[scene_file_path] = {}
 	var fresh_start := not SaveGame.load_pending
 	if SaveGame.load_pending:
 		SaveGame.load_pending = false
@@ -63,6 +67,9 @@ func _ready() -> void:
 	hud.update_health(player.health, player.MAX_HEALTH)
 	player.died.connect(_on_player_died)
 	hud.pause_pressed.connect(pause_menu.open)
+	pause_menu.map_requested.connect(map_screen.open)
+	_explored = SaveGame.explored[scene_file_path]
+	map_screen.setup(self)
 	level_complete.continue_pressed.connect(_go_to_next_level)
 	for campfire in _in_level("checkpoint"):
 		campfire.activated.connect(_on_campfire_activated)
@@ -73,6 +80,34 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	SaveGame.run.time += delta
+	_mark_explored()
+
+
+# --- Mapa: zonas recorridas ---
+
+const MAP_CHUNK := 6
+
+func _chunk_key(cell: Vector2i) -> String:
+	return "%d,%d" % [floori(cell.x / float(MAP_CHUNK)), floori(cell.y / float(MAP_CHUNK))]
+
+# Marca como recorridas las zonas que entran en la pantalla alrededor del jugador
+func _mark_explored() -> void:
+	var cell := Vector2i(((player.global_position - $TileMap.position) / 16.0).floor())
+	for dx in range(-2, 3):
+		for dy in range(-1, 2):
+			_explored[_chunk_key(cell + Vector2i(dx, dy) * MAP_CHUNK)] = true
+
+func is_explored(cell: Vector2i) -> bool:
+	return _explored.has(_chunk_key(cell))
+
+func get_campfires() -> Array:
+	return _in_level("checkpoint")
+
+func get_secrets() -> Array:
+	return _in_level("secrets")
+
+func get_goals() -> Array:
+	return _in_level("goal")
 
 
 # Nodos del grupo que pertenecen a este nivel (y no fueron borrados al cargar)
@@ -157,6 +192,7 @@ func _build_save() -> Dictionary:
 		"crystals": _in_level("crystals").filter(func(c): return not c.collected).map(_key),
 		"enemies": _in_level("enemies").filter(func(e): return not e.is_dead).map(_key),
 		"secrets": _in_level("secrets").filter(func(s): return s.is_found).map(_key),
+		"explored": SaveGame.explored.get(scene_file_path, {}).keys(),
 	}
 
 
@@ -165,6 +201,10 @@ func _apply_save(data: Dictionary) -> void:
 		return
 	if SaveGame.restore_run and data.has("run"):
 		SaveGame.run.merge(data.run, true)
+		var explored := {}
+		for key in data.get("explored", []):
+			explored[key] = true
+		SaveGame.explored[scene_file_path] = explored
 	SaveGame.restore_run = false
 	if not data.has("crystals"):
 		return # comienzo de nivel: no hay foto todavía
