@@ -3,6 +3,12 @@ extends Area2D
 @onready var puntaje: Node = %Puntaje
 @onready var animation_player = $AnimationPlayer
 
-func _on_body_entered(body): 
+# Evita contarlo dos veces y permite saber qué cristales faltan al guardar la partida
+var collected := false
+
+func _on_body_entered(_body):
+	if collected:
+		return
+	collected = true
 	puntaje.add_point()
 	animation_player.play("pickup")

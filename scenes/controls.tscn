@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=3 uid="uid://8ohby87a42rt"]
+
+[ext_resource type="Script" uid="uid://c7mykdmq2vl36" path="res://scripts/controls.gd" id="1_controls"]
+[ext_resource type="Texture2D" uid="uid://cv6hoednc1hjs" path="res://assets/img/escenario/Inicio/Portada3.png" id="2_bg"]
+[ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="3_theme"]
+
+[node name="Controls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+script = ExtResource("1_controls")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 1151.0
+offset_bottom = 648.0
+texture = ExtResource("2_bg")
+expand_mode = 1
+
+[node name="Contenedor" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -320.0
+offset_right = 390.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Tabla" type="GridContainer" parent="Contenedor"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 28
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="TeclaMover" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "← →"
+horizontal_alignment = 2
+
+[node name="Mover" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Move"
+
+[node name="TeclaSaltar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "Space"
+horizontal_alignment = 2
+
+[node name="Saltar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Jump"
+
+[node name="TeclaAtacar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "X"
+horizontal_alignment = 2
+
+[node name="Atacar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Attack"
+
+[node name="TeclaCaminar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "Shift"
+horizontal_alignment = 2
+
+[node name="Caminar" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Walk (stealth)"
+
+[node name="TeclaPausa" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "Esc / P"
+horizontal_alignment = 2
+
+[node name="Pausa" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Pause"
+
+[node name="Back" type="Button" parent="Contenedor"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Back"
+
+[connection signal="pressed" from="Contenedor/Back" to="." method="_on_back_pressed"]

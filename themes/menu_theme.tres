@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://65fikrm1fl1a"]
+
+[ext_resource type="FontFile" uid="uid://d2yiyuplbu5ub" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_font"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boton"]
+
+[resource]
+default_font = ExtResource("1_font")
+default_font_size = 46
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 0.35)
+Button/colors/font_focus_color = Color(1, 0.82, 0.45, 1)
+Button/colors/font_hover_color = Color(1, 0.82, 0.45, 1)
+Button/colors/font_hover_pressed_color = Color(0.85, 0.6, 0.25, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.85, 0.6, 0.25, 1)
+Button/constants/outline_size = 6
+Button/styles/disabled = SubResource("StyleBoxEmpty_boton")
+Button/styles/focus = SubResource("StyleBoxEmpty_boton")
+Button/styles/hover = SubResource("StyleBoxEmpty_boton")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_boton")
+Button/styles/normal = SubResource("StyleBoxEmpty_boton")
+Button/styles/pressed = SubResource("StyleBoxEmpty_boton")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 6

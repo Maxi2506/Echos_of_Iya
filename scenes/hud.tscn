@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cympfbkd6u07t"]
+
+[ext_resource type="Script" uid="uid://73341yxvhuft" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="CrystalsLabel" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 400.0
+offset_bottom = 52.0
+theme = ExtResource("2_theme")
+theme_override_font_sizes/font_size = 28
+text = "Crystals: 0/0"
+
+[node name="PauseButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 52.0
+grow_horizontal = 0
+focus_mode = 0
+theme = ExtResource("2_theme")
+theme_override_font_sizes/font_size = 32
+text = "II"
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]

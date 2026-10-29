@@ -1,7 +1,8 @@
-[gd_scene load_steps=53 format=3 uid="uid://chfa0s53caygn"]
+[gd_scene load_steps=55 format=3 uid="uid://chfa0s53caygn"]
 
 [ext_resource type="Texture2D" uid="uid://dfffajyoft34h" path="res://assets/img/personaje/protagonista/male_hero.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://qpjpu1m86lx2" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="AudioStream" uid="uid://iufy2hgq34gb" path="res://assets/sfx/sword_slash.wav" id="2_slash"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
 atlas = ExtResource("1_f50pn")
@@ -375,6 +376,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50pn"]
 size = Vector2(17.0078, 33.7051)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ataque"]
+size = Vector2(40, 36)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -391,3 +395,20 @@ autoplay = "idle"
 texture_filter = 1
 position = Vector2(-1.5039, -17.1475)
 shape = SubResource("RectangleShape2D_f50pn")
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(26, -18)
+shape = SubResource("RectangleShape2D_ataque")
+disabled = true
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_slash")
+volume_db = -4.0
+bus = &"SFX"
+
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

@@ -1,17 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://brq4in4uuhdyi"]
+[gd_scene load_steps=4 format=3 uid="uid://brq4in4uuhdyi"]
 
 [ext_resource type="Script" uid="uid://c02k5n2yt2580" path="res://scripts/options.gd" id="1_2iy26"]
 [ext_resource type="Texture2D" uid="uid://cv6hoednc1hjs" path="res://assets/img/escenario/Inicio/Portada3.png" id="1_yjkok"]
-[ext_resource type="FontFile" uid="uid://d2yiyuplbu5ub" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_2iy26"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1rs5"]
-bg_color = Color(0.6, 0.6, 0.6, 0.027451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wm3rh"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_1k3ta"]
-color = Color(0, 0, 0, 0)
+[ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -20,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_theme")
 script = ExtResource("1_2iy26")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -33,54 +25,46 @@ expand_mode = 1
 
 [node name="ContenedorPrincipal" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_left = 517.0
+offset_left = 577.0
 offset_top = 376.0
-offset_right = 706.0
+offset_right = 766.0
 offset_bottom = 571.0
+grow_horizontal = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Volume" type="Button" parent="ContenedorPrincipal"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-size_flags_stretch_ratio = 4.82
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_2iy26")
-theme_override_font_sizes/font_size = 46
-theme_override_styles/normal = SubResource("StyleBoxFlat_b1rs5")
+theme_override_font_sizes/font_size = 38
 text = "Volume"
-icon_alignment = 1
 
 [node name="Difficulty" type="Button" parent="ContenedorPrincipal"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_2iy26")
-theme_override_font_sizes/font_size = 46
-theme_override_styles/normal = SubResource("StyleBoxFlat_wm3rh")
-text = "Difficulty
-"
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Difficulty"
 
 [node name="Language" type="Button" parent="ContenedorPrincipal"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-size_flags_stretch_ratio = 4.82
-localize_numeral_system = false
-theme_override_fonts/font = ExtResource("2_2iy26")
-theme_override_font_sizes/font_size = 46
-theme_override_styles/normal = SubResource("StyleBoxFlat_b1rs5")
+theme_override_font_sizes/font_size = 38
 text = "Language"
-icon_alignment = 1
+
+[node name="Controls" type="Button" parent="ContenedorPrincipal"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Controls"
 
 [node name="Back" type="Button" parent="ContenedorPrincipal"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_2iy26")
-theme_override_font_sizes/font_size = 46
-theme_override_styles/normal = SubResource("StyleBoxLine_1k3ta")
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
 text = "Back"
 
-[connection signal="pressed" from="ContenedorPrincipal/Volume" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="ContenedorPrincipal/Difficulty" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="ContenedorPrincipal/Language" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="ContenedorPrincipal/Back" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Volume" to="." method="_on_volume_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Difficulty" to="." method="_on_difficulty_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Language" to="." method="_on_language_pressed"]
+[connection signal="pressed" from="ContenedorPrincipal/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="ContenedorPrincipal/Back" to="." method="_on_back_pressed"]
