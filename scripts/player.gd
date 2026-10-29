@@ -6,7 +6,7 @@ signal died
 
 const SPEED = 150.0
 const WALK_SPEED = 65.0 # Velocidad reducida para el sigilo
-const JUMP_VELOCITY = -320.0
+const JUMP_VELOCITY = -345.0
 
 # Distancia horizontal de la hitbox del ataque respecto al centro del jugador
 const ATTACK_REACH = 26.0

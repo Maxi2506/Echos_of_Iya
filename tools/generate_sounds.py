@@ -98,6 +98,33 @@ def enemy_hit():
     save('enemy_hit.wav', out)
 
 
+def _tone_sequence(name, notes, seed, note_len=0.16, tail=0.6):
+    """Secuencia de notas tipo campanita (seno con armónico y caída suave)."""
+    random.seed(seed)
+    total = int(RATE * (note_len * len(notes) + tail))
+    out = [0.0] * total
+    for k, freq in enumerate(notes):
+        start = int(RATE * note_len * k)
+        length = int(RATE * (note_len + tail))
+        for i in range(length):
+            if start + i >= total:
+                break
+            t = i / RATE
+            env = min(1, t / 0.005) * math.exp(-t * 5)
+            out[start + i] += (math.sin(2 * math.pi * freq * t) * 0.6 + math.sin(4 * math.pi * freq * t) * 0.2) * env
+    save(name, out)
+
+
+def secret_found():
+    """Arpegio ascendente corto: descubriste algo."""
+    _tone_sequence('secret_found.wav', [523, 659, 784, 1047], 12, note_len=0.09, tail=0.5)
+
+
+def level_complete():
+    """Fanfarria breve al completar un nivel."""
+    _tone_sequence('level_complete.wav', [392, 523, 659, 784, 659, 1047], 13, note_len=0.15, tail=0.9)
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     sword_slash()
@@ -105,4 +132,6 @@ if __name__ == '__main__':
     campfire_ignite()
     player_hurt()
     enemy_hit()
+    secret_found()
+    level_complete()
     print('Sonidos generados.')

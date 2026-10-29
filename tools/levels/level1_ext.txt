@@ -1,0 +1,28 @@
+; Nivel 1, zona final. Cada carácter es una celda de 16x16.
+; @origin = celda (x, y) del primer carácter, en las coordenadas del TileMap del nivel 1.
+@origin 160 -14
+................................................................................................BBBBBB
+................................................................................................BBBBBB
+................................................................................................BBBBBB
+................................................................................................BBBBBB
+................................................................................................BBBBBB
+................................................................................................BBBBBB
+.................................................................c.c.cK.........................BBBBBB
+................................................................BBBBBBBB........................BBBBBB
+...........................................................c....BBBBBBBB........................BBBBBB
+..........................................................BBBB..................................BBBBBB
+..........................................................BBBB..................................BBBBBB
+.....................................................c..........................................BBBBBB
+....................................................BBBB........................................BBBBBB
+...................................c..c.............BBBB........................................BBBBBB
+................................................................................................BBBBBB
+...............................H..............BBBB..............................................F....B
+..........................BBBBBBBBBBBBBBBB....BBBB..............................................F.cccB
+BBBBBBBBBB..........X...BBBBBBBBBBBBBBBBBB......................................l.....G.....l...F....B
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB........c......c........c........BBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB............K.......s......r....BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB

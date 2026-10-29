@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr5wph81ngj5b"]
+
+[ext_resource type="Script" uid="uid://mg1ga613aw05" path="res://scripts/level/goal.gd" id="1_goal"]
+[ext_resource type="Texture2D" uid="uid://cf467ql0640d5" path="res://assets/img/escenario/torii.png" id="2_torii"]
+
+[sub_resource type="RectangleShape2D" id="Shape_goal"]
+size = Vector2(24, 40)
+
+[node name="GoalTorii" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_goal")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -22)
+texture = ExtResource("2_torii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -20)
+shape = SubResource("Shape_goal")

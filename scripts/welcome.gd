@@ -1,6 +1,6 @@
 extends Control
 
-const GAME_SCENE_PATH = "res://scenes/game.tscn"
+const GAME_SCENE_PATH = "res://scenes/levels/level_1.tscn"
 const OPTIONS_SCENE_PATH = "res://scenes/options.tscn"
 
 @onready var start_button: Button = $ContenedorPrincipal/Start
@@ -17,12 +17,17 @@ func _ready() -> void:
 func _on_start_pressed() -> void:
 	SaveGame.load_pending = false
 	SaveGame.checkpoint_active = false
+	SaveGame.new_run()
 	get_tree().change_scene_to_file(GAME_SCENE_PATH)
 
 func _on_load_pressed() -> void:
 	SaveGame.load_pending = true
 	SaveGame.checkpoint_active = true
-	get_tree().change_scene_to_file(SaveGame.read().get("level", GAME_SCENE_PATH))
+	SaveGame.restore_run = true
+	var level: String = SaveGame.read().get("level", GAME_SCENE_PATH)
+	if not ResourceLoader.exists(level): # guardado de una versión vieja del juego
+		level = GAME_SCENE_PATH
+	get_tree().change_scene_to_file(level)
 
 func _on_options_pressed() -> void:
 	get_tree().change_scene_to_file(OPTIONS_SCENE_PATH)

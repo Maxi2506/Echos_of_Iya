@@ -109,8 +109,41 @@ def hearts():
         im.save(f'assets/img/ui/{name}.png')
 
 
+def torii():
+    """Portal torii (fin del nivel 1), 48x44, con sombreado simple."""
+    from PIL import ImageDraw
+    im = Image.new('RGBA', (48, 44))
+    d = ImageDraw.Draw(im)
+    red, red_dark, red_light = (196, 40, 36, 255), (128, 22, 26, 255), (232, 86, 60, 255)
+    roof, roof_light, black = (44, 32, 38, 255), (78, 62, 68, 255), (16, 10, 14, 255)
+    # kasagi (techo curvo)
+    d.rectangle((2, 3, 45, 7), fill=roof)
+    d.rectangle((0, 1, 47, 3), fill=roof)
+    d.line((0, 1, 47, 1), fill=roof_light)
+    d.point([(0, 0), (47, 0)], fill=roof)
+    d.line((2, 7, 45, 7), fill=black)
+    # shimaki (viga roja bajo el techo)
+    d.rectangle((4, 8, 43, 10), fill=red)
+    d.line((4, 10, 43, 10), fill=red_dark)
+    d.line((4, 8, 43, 8), fill=red_light)
+    # nuki (viga inferior) y gakuzuka (placa central)
+    d.rectangle((6, 16, 41, 18), fill=red)
+    d.line((6, 18, 41, 18), fill=red_dark)
+    d.line((6, 16, 41, 16), fill=red_light)
+    d.rectangle((21, 11, 26, 15), fill=roof)
+    d.rectangle((22, 12, 25, 14), fill=(200, 170, 90, 255))
+    # columnas
+    for x in (10, 34):
+        d.rectangle((x, 8, x + 4, 40), fill=red)
+        d.line((x, 8, x, 40), fill=red_light)
+        d.line((x + 4, 8, x + 4, 40), fill=red_dark)
+        d.rectangle((x - 1, 40, x + 5, 43), fill=black)
+    im.save('assets/img/escenario/torii.png')
+
+
 if __name__ == '__main__':
     campfire_off()
+    torii()
     hero_death()
     hearts()
     print('Sprites generados.')

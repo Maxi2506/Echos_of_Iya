@@ -11,7 +11,8 @@ const HEART_EMPTY = preload("res://assets/img/ui/heart_empty.png")
 @onready var toast: Label = $Toast
 
 var total_crystals := 0
-var _toast_tween: Tween
+var _toast_queue: Array[String] = []
+var _toast_busy := false
 
 func set_total_crystals(total: int) -> void:
 	total_crystals = total
@@ -23,15 +24,24 @@ func update_health(health: int, _max_health: int) -> void:
 	for i in hearts.get_child_count():
 		hearts.get_child(i).texture = HEART_FULL if i < health else HEART_EMPTY
 
-# Mensaje corto arriba al centro que se desvanece solo (ej. "Punto de control")
+# Mensaje corto arriba al centro que se desvanece solo (ej. "Punto de control").
+# Si ya hay uno en pantalla, el nuevo espera su turno.
 func show_toast(text: String) -> void:
-	toast.text = text
-	if _toast_tween:
-		_toast_tween.kill()
+	_toast_queue.append(text)
+	if not _toast_busy:
+		_show_next_toast()
+
+func _show_next_toast() -> void:
+	if _toast_queue.is_empty():
+		_toast_busy = false
+		return
+	_toast_busy = true
+	toast.text = _toast_queue.pop_front()
 	toast.modulate.a = 1.0
-	_toast_tween = create_tween()
-	_toast_tween.tween_interval(1.5)
-	_toast_tween.tween_property(toast, "modulate:a", 0.0, 0.6)
+	var tween := create_tween()
+	tween.tween_interval(1.5)
+	tween.tween_property(toast, "modulate:a", 0.0, 0.5)
+	tween.finished.connect(_show_next_toast)
 
 func _on_pause_button_pressed() -> void:
 	pause_pressed.emit()
