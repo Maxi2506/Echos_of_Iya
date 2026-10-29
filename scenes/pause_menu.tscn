@@ -44,24 +44,11 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 38
 text = "Resume"
 
-[node name="Save" type="Button" parent="Menu"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 38
-text = "Save"
-
 [node name="MainMenu" type="Button" parent="Menu"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 38
 text = "Main menu"
-
-[node name="Message" type="Label" parent="Menu"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
-theme_override_font_sizes/font_size = 26
-horizontal_alignment = 1
 
 [node name="ControlsHint" type="Label" parent="."]
 anchors_preset = 12
@@ -78,5 +65,4 @@ theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Menu/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Menu/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="Menu/MainMenu" to="." method="_on_main_menu_pressed"]

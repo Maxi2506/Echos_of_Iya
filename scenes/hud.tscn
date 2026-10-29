@@ -1,19 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://cympfbkd6u07t"]
+[gd_scene load_steps=4 format=3 uid="uid://cympfbkd6u07t"]
 
 [ext_resource type="Script" uid="uid://73341yxvhuft" path="res://scripts/hud.gd" id="1_hud"]
 [ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://b5yu4j52eww52" path="res://assets/img/ui/heart_full.png" id="3_heart"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
 
+[node name="Hearts" type="HBoxContainer" parent="."]
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 160.0
+offset_bottom = 46.0
+theme_override_constants/separation = 6
+
+[node name="Heart1" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(36, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+stretch_mode = 5
+
+[node name="Heart2" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(36, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+stretch_mode = 5
+
+[node name="Heart3" type="TextureRect" parent="Hearts"]
+custom_minimum_size = Vector2(36, 32)
+layout_mode = 2
+texture = ExtResource("3_heart")
+stretch_mode = 5
+
 [node name="CrystalsLabel" type="Label" parent="."]
 offset_left = 16.0
-offset_top = 12.0
+offset_top = 54.0
 offset_right = 400.0
-offset_bottom = 52.0
+offset_bottom = 90.0
 theme = ExtResource("2_theme")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 26
 text = "Crystals: 0/0"
+
+[node name="Toast" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 90.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme = ExtResource("2_theme")
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
 
 [node name="PauseButton" type="Button" parent="."]
 anchors_preset = 1

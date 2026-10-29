@@ -22,7 +22,7 @@ func _on_start_pressed() -> void:
 func _on_load_pressed() -> void:
 	SaveGame.load_pending = true
 	SaveGame.checkpoint_active = true
-	get_tree().change_scene_to_file(GAME_SCENE_PATH)
+	get_tree().change_scene_to_file(SaveGame.read().get("level", GAME_SCENE_PATH))
 
 func _on_options_pressed() -> void:
 	get_tree().change_scene_to_file(OPTIONS_SCENE_PATH)

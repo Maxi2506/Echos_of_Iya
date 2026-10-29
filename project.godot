@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 Settings="*res://scripts/settings.gd"
 SaveGame="*res://scripts/save_game.gd"
 Music="*res://scenes/music.tscn"
+DebugTools="*res://scripts/debug_tools.gd"
 
 [display]
 

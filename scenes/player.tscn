@@ -1,8 +1,10 @@
-[gd_scene load_steps=55 format=3 uid="uid://chfa0s53caygn"]
+[gd_scene load_steps=66 format=3 uid="uid://chfa0s53caygn"]
 
 [ext_resource type="Texture2D" uid="uid://dfffajyoft34h" path="res://assets/img/personaje/protagonista/male_hero.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://qpjpu1m86lx2" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://iufy2hgq34gb" path="res://assets/sfx/sword_slash.wav" id="2_slash"]
+[ext_resource type="Texture2D" uid="uid://bfdhnwqu6how2" path="res://assets/img/personaje/protagonista/hero_death.png" id="3_death"]
+[ext_resource type="AudioStream" uid="uid://b106bngye1n3w" path="res://assets/sfx/player_hurt.wav" id="4_hurt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
 atlas = ExtResource("1_f50pn")
@@ -196,6 +198,42 @@ region = Rect2(1024, 256, 128, 128)
 atlas = ExtResource("1_f50pn")
 region = Rect2(1152, 256, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath0"]
+atlas = ExtResource("3_death")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath1"]
+atlas = ExtResource("3_death")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath2"]
+atlas = ExtResource("3_death")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath3"]
+atlas = ExtResource("3_death")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath4"]
+atlas = ExtResource("3_death")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath5"]
+atlas = ExtResource("3_death")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath6"]
+atlas = ExtResource("3_death")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath7"]
+atlas = ExtResource("3_death")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdeath8"]
+atlas = ExtResource("3_death")
+region = Rect2(1024, 0, 128, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fhkdx"]
 animations = [{
 "frames": [{
@@ -371,6 +409,38 @@ animations = [{
 "loop": true,
 "name": &"walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_hdeath0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath2")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_hdeath3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdeath8")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50pn"]
@@ -379,7 +449,7 @@ size = Vector2(17.0078, 33.7051)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ataque"]
 size = Vector2(40, 36)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_g2els")
@@ -409,6 +479,11 @@ disabled = true
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_slash")
 volume_db = -4.0
+bus = &"SFX"
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hurt")
+volume_db = -3.0
 bus = &"SFX"
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

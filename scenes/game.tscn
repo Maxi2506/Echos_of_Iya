@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://b7o8ady7oujre"]
+[gd_scene load_steps=57 format=4 uid="uid://b7o8ady7oujre"]
 
 [ext_resource type="Texture2D" uid="uid://bhr814jc03g2t" path="res://assets/img/escenario/Elements/Salt.png" id="1_kvuet"]
 [ext_resource type="PackedScene" uid="uid://5gxckvplnwm2" path="res://scenes/killzone.tscn" id="1_u5sy4"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://bmod6oap0p8hp" path="res://scripts/game.gd" id="30_game"]
 [ext_resource type="PackedScene" uid="uid://cympfbkd6u07t" path="res://scenes/hud.tscn" id="31_hud"]
 [ext_resource type="PackedScene" uid="uid://dvudky53umgah" path="res://scenes/pause_menu.tscn" id="32_pause"]
+[ext_resource type="PackedScene" uid="uid://cf6pk7wr5ieic" path="res://scenes/death_screen.tscn" id="33_death"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
 texture = ExtResource("1_kvuet")
@@ -6568,6 +6569,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="killzone" parent="." instance=ExtResource("1_u5sy4")]
+instant_kill = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
 position = Vector2(142, -18)
@@ -6719,3 +6721,5 @@ position = Vector2(2154, -84)
 [node name="HUD" parent="." instance=ExtResource("31_hud")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("32_pause")]
+
+[node name="DeathScreen" parent="." instance=ExtResource("33_death")]

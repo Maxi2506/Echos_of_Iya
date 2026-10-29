@@ -2,13 +2,13 @@ extends CanvasLayer
 ## Menú de pausa. Se abre con Escape, con P o con el botón "II" del HUD.
 ## Tiene process_mode = Always para seguir funcionando con el juego pausado.
 
-signal save_requested
-
 const WELCOME_SCENE_PATH = "res://scenes/welcome.tscn"
 
 @onready var resume_button: Button = $Menu/Resume
-@onready var message_label: Label = $Menu/Message
 @onready var controls_hint: Label = $ControlsHint
+
+# El nivel lo pone en false cuando el jugador muere, para no pausar sobre la pantalla de muerte
+var enabled := true
 
 func _ready() -> void:
 	hide()
@@ -17,7 +17,7 @@ func _ready() -> void:
 			button.mouse_entered.connect(button.grab_focus)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") and (enabled or visible):
 		toggle()
 		get_viewport().set_input_as_handled()
 
@@ -28,7 +28,8 @@ func toggle() -> void:
 		open()
 
 func open() -> void:
-	message_label.text = ""
+	if not enabled:
+		return
 	# Recordatorio de teclas; se arma acá para que salga en el idioma elegido
 	controls_hint.text = "← → %s   •   %s %s   •   X %s   •   Shift %s   •   Esc %s" % [
 		tr("Move"), tr("Space"), tr("Jump"), tr("Attack"), tr("Stealth"), tr("Resume")]
@@ -40,14 +41,8 @@ func close() -> void:
 	hide()
 	get_tree().paused = false
 
-func show_message(text: String) -> void:
-	message_label.text = text
-
 func _on_resume_pressed() -> void:
 	close()
-
-func _on_save_pressed() -> void:
-	save_requested.emit()
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false

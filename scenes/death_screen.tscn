@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf6pk7wr5ieic"]
+
+[ext_resource type="Script" uid="uid://c1wp4nyqfxt15" path="res://scripts/death_screen.gd" id="1_death"]
+[ext_resource type="Theme" uid="uid://65fikrm1fl1a" path="res://themes/menu_theme.tres" id="2_theme"]
+
+[node name="DeathScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 20
+visible = false
+script = ExtResource("1_death")
+
+[node name="Fondo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.0, 0.03, 0)
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -130.0
+offset_right = 260.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Title" type="Label" parent="Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.15, 0.2, 1)
+theme_override_font_sizes/font_size = 68
+text = "You have fallen"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Retry"
+
+[node name="MainMenu" type="Button" parent="Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Main menu"
+
+[connection signal="pressed" from="Menu/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Menu/MainMenu" to="." method="_on_main_menu_pressed"]
