@@ -1,6 +1,6 @@
 extends Area2D
 ## Zona que lastima al jugador.
-## Los enemigos la usan para el daño por contacto (quita un corazón).
+## Los enemigos la usan para el daño por contacto y para sus ataques (quita un corazón).
 ## Con instant_kill (pozos y abismos) mata de una.
 
 @export var instant_kill := false
@@ -16,4 +16,4 @@ func _physics_process(_delta: float) -> void:
 		if instant_kill:
 			body.die(true)
 		else:
-			body.hurt(global_position)
+			body.hurt(global_position, get_parent())

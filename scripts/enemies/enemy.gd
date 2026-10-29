@@ -36,6 +36,12 @@ enum State { PATROL, CHASE, ATTACK, HURT, DEAD }
 @export var body_half_width := 9.0
 ## Color de las partículas al morir (si no tiene animación "death")
 @export var death_color := Color(0.6, 0.9, 1.0)
+## Dificultad mínima en la que aparece: 0 = siempre, 1 = normal y difícil, 2 = solo difícil
+@export_range(0, 2) var min_difficulty := 0
+## Probabilidad de soltar un corazón al morir
+@export_range(0.0, 1.0) var heart_drop_chance := 0.3
+
+const HEART_SCENE := preload("res://scenes/level/heart_pickup.tscn")
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var contact: Area2D = $killzone
@@ -167,6 +173,8 @@ func _update_animation() -> void:
 	if state == State.HURT:
 		if sprite.sprite_frames.has_animation("hit"):
 			sprite.play("hit")
+		elif sprite.animation != "idle":
+			sprite.play("idle")
 		return
 	var anim := "run" if absf(velocity.x) > 1 else "idle"
 	if sprite.animation != anim:
@@ -230,10 +238,22 @@ func take_hit(from_position: Vector2) -> void:
 	_change_state(State.HURT)
 
 
+## Lo llama el jugador cuando bloquea un golpe de este enemigo: retrocede sin recibir daño
+func blocked(from_position: Vector2) -> void:
+	if is_dead:
+		return
+	velocity = Vector2(signf(global_position.x - from_position.x) * 170, -60)
+	_hurt_time = 0.35
+	_disable_attack()
+	_change_state(State.HURT)
+
+
 func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	if randf() < heart_drop_chance:
+		_drop_heart.call_deferred()
 	_change_state(State.DEAD)
 	_alert.visible = false
 	_disable_attack()
@@ -251,6 +271,12 @@ func die() -> void:
 		visible = false
 		await death_sound.finished
 	queue_free()
+
+
+func _drop_heart() -> void:
+	var heart := HEART_SCENE.instantiate()
+	heart.position = position + Vector2(0, -12)
+	get_parent().add_child(heart)
 
 
 func _flash() -> void:

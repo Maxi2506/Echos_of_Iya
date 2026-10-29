@@ -31,19 +31,19 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -110.0
-offset_top = -360.0
+offset_top = -380.0
 offset_right = 390.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 18
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Tabla" type="GridContainer" parent="Contenedor"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 28
-theme_override_constants/v_separation = 6
+theme_override_constants/v_separation = 2
 columns = 2
 
 [node name="TeclaMover" type="Label" parent="Contenedor/Tabla"]
@@ -81,6 +81,18 @@ horizontal_alignment = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Attack"
+
+[node name="TeclaDefensa" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.45, 1)
+theme_override_font_sizes/font_size = 30
+text = "C"
+horizontal_alignment = 2
+
+[node name="Defensa" type="Label" parent="Contenedor/Tabla"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Block"
 
 [node name="TeclaCaminar" type="Label" parent="Contenedor/Tabla"]
 layout_mode = 2
@@ -122,7 +134,7 @@ text = "Map"
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.75)
 theme_override_font_sizes/font_size = 18
-text = "Gamepad: A jump · X attack · LB stealth · Start pause · Select map"
+text = "Gamepad: A jump · X attack · B block · LB stealth · Start pause · Select map"
 horizontal_alignment = 1
 
 [node name="Back" type="Button" parent="Contenedor"]

@@ -8,10 +8,10 @@ BBBBBBBBBBBBBBBBBBBBBBBBBBBB####################################################
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB#########################################################################.......................................c..........................FcccBBBB
 BB..........L...............#########################################################################.............................c...................c..........l.G.l.F...BBBB
 BB..........................#########################################################################...........................................................BBBBBBBBBBBBBBB
-BB..........................#########################################################################.......................H.........K...........X........K....BBBBBBBBBBBBBBB
-BB..................................#########.....#######....########################################.......................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BB..........................#########################################################################.......................H...h.....K...........X........K....BBBBBBBBBBBBBBB
+BB..................................#########.....#######....########################################..................c....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BB..................................#########................########################################....................c..BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-BB....................................................................#######.........#######..................c..............BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BB....................................................................#######.........#######.................................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BB....................................................................#######.................L.........................BBB...BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BB.............................................................................L.....................................c..BBB...BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BB............................................................................................................................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
@@ -26,9 +26,9 @@ BBBBBBBBBBBBBBBBBBBBBBBBBBBB######..r...........................................
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB###########....................................................c..................................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB###########.................................................................BBB...................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB######............c...........c..............c........c.....................BBB...................BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBBBBBBB#....f..........................................................s.....H...........r.......K.......BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBBBBBBBBBBBBBBBBBBBB#....f..........................................................s.....H...h.BBB...r.......K.......BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB#.cccf...................................................BBB========BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBBBBBBBBBBBBBBBBBBBB#....f..............r.......s................X...........BBB........BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBBBBBBBBBBBBBBBBBBBB#h...f...........h..r.......s................X.....h.....BBB........BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB#################################=====BBB=========BBB....BBB........BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB#################################.....BBB.........BBB....BBB........BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBBBBBBBBBBBBBBBBBBBB#################################.....BBB.........BBB....BBB........BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB

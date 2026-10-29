@@ -11,7 +11,7 @@ extends SceneTree
 ##   P  inicio del jugador c  cristal             H  fogata (punto de control)
 ##   G  meta               K  caballero           X  kitsune   s  serpiente   r  rana
 ##   M  plataforma móvil horizontal               V  plataforma móvil vertical
-##   l  velas (en el piso) L  farol colgante (del techo)
+##   l  velas (en el piso) L  farol colgante (del techo)  h  corazón (recupera 1 de vida)
 ## Las fichas que se paran en el piso (P, H, G, enemigos, l) van en la celda de arriba del piso.
 
 const TILESET_PATH := "res://tilesets/world.tres"
@@ -30,6 +30,7 @@ const SCENES := {
 	"V": "res://scenes/level/moving_platform.tscn",
 	"l": "res://scenes/velas.tscn",
 	"L": "res://scenes/velas_techo.tscn",
+	"h": "res://scenes/level/heart_pickup.tscn",
 }
 const ENEMY_NAMES := {"K": "caballero", "X": "kitsune", "s": "serpiente", "r": "rana"}
 
@@ -170,8 +171,88 @@ static func _group_cells(cells: Array) -> Array:
 
 # ------------------------------------------------------------------ fichas (entidades)
 
+## Desplazamiento real de una capa dentro del nivel (la capa puede estar dentro del nodo "TileMap",
+## que en el nivel 1 está corrido a (-13, 11))
+static func _offset(layer: Node2D) -> Vector2:
+	var parent := layer.get_parent()
+	return layer.position + (parent.position if parent is Node2D and parent.get_parent() != null else Vector2.ZERO)
+
+
 func _cell_to_world(layer: Node2D, cell: Vector2i, anchor: Vector2) -> Vector2:
-	return layer.position + Vector2(cell * 16) + anchor
+	return _offset(layer) + Vector2(cell * 16) + anchor
+
+
+# ------------------------------------------------------------------ apoyar las fichas en el piso
+
+var _solid_cells := {}
+var _solid_offset := Vector2.ZERO
+
+## Junta las celdas con colisión de todas las capas del nivel
+func _collect_solids(tilemap: Node2D) -> void:
+	_solid_cells.clear()
+	for layer in tilemap.get_children():
+		if layer is TileMapLayer and layer.collision_enabled:
+			_solid_offset = _offset(layer)
+			for c in layer.get_used_cells():
+				var data: TileData = layer.get_cell_tile_data(c)
+				if data and data.get_collision_polygons_count(0) > 0:
+					_solid_cells[c] = true
+
+
+func _cell_at(world: Vector2) -> Vector2i:
+	return Vector2i(((world - _solid_offset) / 16.0).floor())
+
+
+## Pies sobre el piso: si quedó dentro de una pared sube, si quedó en el aire baja
+func _snap_to_floor(feet: Vector2, label: String) -> Vector2:
+	var cell := _cell_at(feet - Vector2(0, 1))
+	var steps := 0
+	while _solid_cells.has(cell) and steps < 12:
+		cell.y -= 1
+		steps += 1
+	while not _solid_cells.has(cell + Vector2i.DOWN) and steps < 40:
+		cell.y += 1
+		steps += 1
+	if steps >= 40:
+		push_warning("%s: no encontré piso debajo" % label)
+		return feet
+	return Vector2(feet.x, _solid_offset.y + (cell.y + 1) * 16)
+
+
+## Cristales: si quedaron dentro de una pared, suben hasta el primer hueco libre
+func _snap_out_of_wall(center: Vector2) -> Vector2:
+	var cell := _cell_at(center)
+	var moved := false
+	while _solid_cells.has(cell):
+		cell.y -= 1
+		moved = true
+	return Vector2(center.x, _solid_offset.y + cell.y * 16 + 10) if moved else center
+
+
+func _snap_all(root: Node, tilemap: Node2D) -> void:
+	_collect_solids(tilemap)
+	for node in root.find_children("*", "", true, false):
+		var scene: String = node.scene_file_path
+		if scene.ends_with("cristal.tscn"):
+			node.position = _snap_out_of_wall(node.position)
+		elif scene.ends_with("hoguera.tscn"):
+			node.position = _snap_to_floor(node.position + Vector2(0, 8), node.name) - Vector2(0, 8)
+		elif scene.ends_with("velas.tscn"):
+			node.position = _snap_to_floor(node.position + Vector2(0, 8), node.name) - Vector2(0, 8)
+		elif scene.contains("/enemies/") or scene.contains("goal_") or scene.ends_with("heart_pickup.tscn"):
+			node.position = _snap_to_floor(node.position, node.name)
+	_assign_difficulty(root)
+
+
+## La dificultad es la cantidad de enemigos: recorriendo el nivel de izquierda a derecha,
+## de cada 4 enemigos 2 aparecen siempre, 1 desde normal y 1 solo en difícil.
+func _assign_difficulty(root: Node) -> void:
+	var enemies := root.find_children("*", "", true, false).filter(
+		func(n): return n.scene_file_path.contains("/enemies/"))
+	enemies.sort_custom(func(a, b): return a.position.x < b.position.x)
+	var pattern := [0, 1, 0, 2]
+	for i in enemies.size():
+		enemies[i].set("min_difficulty", pattern[i % pattern.size()])
 
 
 func _add(parent: Node, scene_path: String, name_prefix: String, position: Vector2, owner: Node) -> Node:
@@ -205,6 +286,8 @@ func _place_entities(rows: Array[String], origin: Vector2i, terrain: TileMapLaye
 					player_pos = feet
 				"c":
 					_add(groups.crystals, SCENES.c, "cristal", _cell_to_world(terrain, cell, Vector2(8, 10)), root)
+				"h":
+					_add(_container(root, "Corazones"), SCENES.h, "corazon", feet, root)
 				"H":
 					_add(groups.campfires, SCENES.H, "fogata", feet + Vector2(0, -8), root)
 				"G":
@@ -288,7 +371,7 @@ func _add_secret(tiles_by_cell: Dictionary, terrain: TileMapLayer, root: Node) -
 	tiles.name = "Tiles"
 	tiles.tile_set = tileset
 	tiles.collision_enabled = false
-	tiles.position = terrain.position
+	tiles.position = _offset(terrain)
 	tiles.z_index = 1
 	area.add_child(tiles)
 	tiles.owner = root
@@ -306,7 +389,7 @@ func _add_secret(tiles_by_cell: Dictionary, terrain: TileMapLayer, root: Node) -
 	var rect := RectangleShape2D.new()
 	rect.size = Vector2((max_c - min_c + Vector2i.ONE) * 16) - Vector2(4, 4)
 	shape.shape = rect
-	shape.position = terrain.position + Vector2(min_c * 16) + rect.size / 2 + Vector2(2, 2)
+	shape.position = _offset(terrain) + Vector2(min_c * 16) + rect.size / 2 + Vector2(2, 2)
 	area.add_child(shape)
 	shape.owner = root
 
@@ -325,7 +408,7 @@ func build_level_1() -> void:
 	var root: Node2D = load(LEVEL_1).instantiate(PackedScene.GEN_EDIT_STATE_MAIN)
 	# Si el nivel ya se generó antes, se borra lo agregado para no duplicarlo
 	for child in root.get_children():
-		if child.name in ["Cristal", "Yokai_Knight", "Cristales", "Enemigos", "Decoracion", "Plataformas",
+		if child.name in ["Cristal", "Yokai_Knight", "Cristales", "Enemigos", "Decoracion", "Plataformas", "Corazones",
 				"Secretos", "LevelComplete", "MapScreen"] or String(child.name).begins_with("meta_"):
 			root.remove_child(child)
 			child.free()
@@ -366,15 +449,13 @@ func build_level_1() -> void:
 			if c.x >= 161 and c.y >= 7 and c.x <= 200:
 				layer.erase_cell(c)
 
-	# 3) Sala secreta debajo del piso del castillo (se cae por un piso falso)
+	# 3) Sala secreta debajo del piso del castillo (se cae por un piso falso, x 104-107).
+	#    Para salir hay un ascensor (plataforma que sube y baja) justo debajo del piso falso.
 	for x in range(101, 111):
 		for y in range(6, 9):
-			if not (x in [106, 107] and y in [7, 8]):
-				mid.erase_cell(Vector2i(x, y))
+			mid.erase_cell(Vector2i(x, y))
 	for x in range(101, 111):
 		mid.set_cell(Vector2i(x, 9), CASTLE, Vector2i(rng.randi_range(16, 28), 45))
-	for x in [106, 107]:
-		mid.set_cell(Vector2i(x, 7), CASTLE, Vector2i(rng.randi_range(16, 28), 45))
 	for x in range(100, 112):
 		for y in range(5, 10):
 			walls.set_cell(Vector2i(x, y), WALLS, Vector2i(2 + posmod(x, 4), 20 + posmod(y, 5)))
@@ -402,22 +483,36 @@ func build_level_1() -> void:
 	var crystals := _container(root, "Cristales")
 	var enemies := _container(root, "Enemigos")
 	var props := _container(root, "Decoracion")
-	# zonas 1 a 4 (mapa original), en celdas del TileMap: [x, y, ficha]
+	# zonas 1 a 4 (mapa original). Posiciones en píxeles; después se apoyan solas en el piso.
 	var classic := [
-		[-8, -6, "c"], [3, -12, "c"], [-9, 2, "c"], [-7, 5, "c"], [32, -3, "c"], [43, -3, "c"], [45, 4, "c"],
-		[69, 0, "c"], [25, -1, "c"], [14, -4, "c"], [56, -1, "c"], [92, 2, "c"], [118, 2, "c"], [146, 0, "c"],
-		[103, 8, "c"], [105, 8, "c"], [109, 8, "c"],
-		[20, 5, "s"], [16, -3, "r"], [38, 3, "r"], [55, 1, "K"], [41, -2, "X"],
-		[93, 3, "s"], [99, 4, "K"], [111, 4, "K"], [144, 1, "X"],
+		# cristales que ya tenía el juego (el de (-112,-73) estaba en un hueco donde el
+		# personaje no entra: pasa arriba de la cornisa)
+		[-100, -165, "c"], [50, -150, "c"], [-134, 60, "c"], [-95, 102, "c"], [501, -19, "c"],
+		[682, -26, "c"], [720, 86, "c"], [1097, 22, "c"],
+		# cristales nuevos
+		[395, -12, "c"], [230, -60, "c"], [895, 0, "c"], [1465, 40, "c"], [1880, 40, "c"], [2330, 20, "c"],
+		# sala secreta bajo el castillo
+		[1630, 148, "c"], [1683, 118, "c"], [1745, 148, "c"],
+		# enemigos
+		[320, 110, "s"], [250, -40, "r"], [610, 60, "r"], [868, 43, "K"], [650, -30, "X"],
+		[1475, 70, "s"], [1580, 90, "K"], [1770, 90, "K"], [2300, 40, "X"],
+		# corazones
+		[560, 60, "h"], [1330, 30, "h"], [1855, 80, "h"], [2440, 30, "h"],
 	]
 	for e in classic:
-		var cell := Vector2i(e[0], e[1])
+		var pos := Vector2(e[0], e[1])
 		var ch: String = e[2]
 		if ch == "c":
-			_add(crystals, SCENES.c, "cristal", _cell_to_world(mid, cell, Vector2(8, 10)), root)
+			_add(crystals, SCENES.c, "cristal", pos, root)
+		elif ch == "h":
+			_add(_container(root, "Corazones"), SCENES.h, "corazon", pos, root)
 		else:
-			_add(enemies, SCENES[ch], ENEMY_NAMES[ch], _cell_to_world(mid, cell, Vector2(8, 16)), root)
+			_add(enemies, SCENES[ch], ENEMY_NAMES[ch], pos, root)
 	_place_entities(ext.rows, ext.origin, mid, root, "res://scenes/level/goal_torii.tscn")
+	var elevator := _add(_container(root, "Plataformas"), SCENES.V, "ascensor", _cell_to_world(mid, Vector2i(104, 9), Vector2(32, 5)), root)
+	elevator.set("travel", Vector2(0, -80))
+	elevator.set("duration", 1.6)
+	elevator.set("wait", 1.0)
 
 	# Las fogatas viejas pasan al contenedor "Fogatas"; la del inicio, pegada al jugador
 	var old_fires := root.get_node_or_null("Hoguera")
@@ -442,9 +537,10 @@ func build_level_1() -> void:
 	root.set("next_level", LEVEL_2)
 	var ext_rows: Array[String] = ext.rows
 	var ext_origin: Vector2i = ext.origin
-	var right: int = int(mid.position.x) + (ext_origin.x + ext_rows[0].length()) * 16
+	var right: int = int(_offset(mid).x) + (ext_origin.x + ext_rows[0].length()) * 16
 	root.set("camera_limits", Rect2i(-189, -100000, right + 189, 100000 + 161))
 
+	_snap_all(root, tilemap)
 	_save(root, LEVEL_1)
 
 
@@ -516,6 +612,7 @@ func build_level_2() -> void:
 	root.set("next_level", "")
 	root.set("dark", true)
 	root.set("camera_limits", Rect2i(map.origin * 16, size * 16))
+	_snap_all(root, tilemap)
 	_save(root, LEVEL_2)
 
 

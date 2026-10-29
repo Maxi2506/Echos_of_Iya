@@ -16,11 +16,11 @@
 ....................................................BBBB........................................BBBBBB
 ...................................c..c.............BBBB........................................BBBBBB
 ................................................................................................BBBBBB
-...............................H..............BBBB..............................................F....B
+...............................H.......h......BBBB..............................................F....B
 ..........................BBBBBBBBBBBBBBBB....BBBB..............................................F.cccB
-BBBBBBBBBB..........X...BBBBBBBBBBBBBBBBBB......................................l.....G.....l...F....B
+BBBBBBBBBB..........X...BBBBBBBBBBBBBBBBBB....................................h.l.....G.....l...F....B
 BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB........c......c........c........BBBBBBBBBBBBBBBBBBBBBBBBBBB
-BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB............K.......s......r....BBBBBBBBBBBBBBBBBBBBBBBBBBBB
+BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB............K.....h.s......r....BBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
 BBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBB....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB

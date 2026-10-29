@@ -30,9 +30,14 @@ const JUMP_CUT = 0.45
 @onready var attack_shape: CollisionShape2D = $AttackHitbox/CollisionShape2D
 @onready var attack_sound: AudioStreamPlayer2D = $AttackSound
 @onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
+@onready var block_sound: AudioStreamPlayer2D = $BlockSound
+@onready var heal_sound: AudioStreamPlayer2D = $HealSound
+@onready var block_sparks: CPUParticles2D = $BlockSparks
 @onready var camera: Camera2D = get_node_or_null("Camera2D")
 
 var is_attacking := false
+# Defendiéndose con la espada (tecla C): frena los golpes que vienen de frente
+var is_blocking := false
 # Caminando con Shift: los enemigos te ven solo de muy cerca
 var is_sneaking := false
 var _coyote_left := 0.0
@@ -66,6 +71,19 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
+	var direction := Input.get_axis("ui_left", "ui_right")
+
+	# DEFENSA: tecla C (acción "block"). Solo en el piso; mientras se defiende no camina,
+	# pero puede darse vuelta para cubrirse del otro lado.
+	is_blocking = Input.is_action_pressed("block") and is_on_floor() and not is_attacking
+	if is_blocking:
+		if direction != 0:
+			_face(direction)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		animated_sprite.play("block")
+		move_and_slide()
+		return
+
 	# ATAQUE: tecla X (acción "attack"). En el aire también se puede.
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -84,18 +102,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT
 
-	var direction := Input.get_axis("ui_left", "ui_right")
 	# Caminar en sigilo con Shift, solo tocando el suelo
 	is_sneaking = Input.is_action_pressed("walk")
 	var is_walking: bool = is_sneaking and is_on_floor()
 
 	if not is_attacking:
-		if direction > 0:
-			animated_sprite.flip_h = false
-			attack_shape.position.x = ATTACK_REACH
-		elif direction < 0:
-			animated_sprite.flip_h = true
-			attack_shape.position.x = -ATTACK_REACH
+		if direction != 0:
+			_face(direction)
 
 		if direction:
 			var current_speed = WALK_SPEED if is_walking else SPEED
@@ -124,15 +137,45 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func _face(direction: float) -> void:
+	var right := direction > 0
+	animated_sprite.flip_h = not right
+	attack_shape.position.x = ATTACK_REACH if right else -ATTACK_REACH
+	block_sparks.position.x = absf(block_sparks.position.x) * (1 if right else -1)
+	block_sparks.direction.x = absf(block_sparks.direction.x) * (1 if right else -1)
+
+
 # --- Vida y daño ---
 
 func heal_full() -> void:
 	health = MAX_HEALTH
 	health_changed.emit(health, MAX_HEALTH)
 
-# Lo llaman las zonas de daño (enemigos). from_position sirve para empujar hacia el lado contrario.
-func hurt(from_position: Vector2) -> void:
+## Corazones del nivel: devuelve false si ya estaba con la vida llena (y no se consume)
+func heal(amount: int) -> bool:
+	if is_dead or health >= MAX_HEALTH:
+		return false
+	health = mini(health + amount, MAX_HEALTH)
+	health_changed.emit(health, MAX_HEALTH)
+	heal_sound.play()
+	var tween := create_tween()
+	animated_sprite.modulate = Color(0.6, 1.4, 0.7)
+	tween.tween_property(animated_sprite, "modulate", Color.WHITE, 0.35)
+	return true
+
+## ¿El golpe viene de adelante? (la defensa solo cubre el frente)
+func _blocks_from(from_position: Vector2) -> bool:
+	var facing := -1.0 if animated_sprite.flip_h else 1.0
+	var dx := from_position.x - global_position.x
+	return is_blocking and (absf(dx) < 4.0 or signf(dx) == facing)
+
+# Lo llaman las zonas de daño (enemigos). from_position sirve para empujar hacia el lado contrario;
+# source es el enemigo que pegó (si se bloquea, se lo empuja hacia atrás).
+func hurt(from_position: Vector2, source: Node = null) -> void:
 	if is_dead or invulnerable:
+		return
+	if _blocks_from(from_position):
+		_on_blocked(from_position, source)
 		return
 	health -= 1
 	health_changed.emit(health, MAX_HEALTH)
@@ -170,6 +213,19 @@ func die(fell: bool) -> void:
 	_shake(3.0)
 	await animated_sprite.animation_finished
 	died.emit()
+
+
+func _on_blocked(from_position: Vector2, source: Node) -> void:
+	block_sound.play()
+	block_sparks.restart()
+	velocity.x = signf(global_position.x - from_position.x) * 90.0
+	_shake(1.0)
+	if source and source.has_method("blocked"):
+		source.blocked(global_position)
+	# un instante sin recibir golpes para que el mismo ataque no se procese de nuevo
+	invulnerable = true
+	await get_tree().create_timer(0.25, false).timeout
+	invulnerable = false
 
 
 # --- Efectos ---

@@ -90,6 +90,41 @@ def hero_death():
     sheet.save('assets/img/personaje/protagonista/hero_death.png')
 
 
+def hero_block():
+    """Guardia: el héroe un poco agachado con la espada cruzada delante de la cara (2 cuadros: el
+    segundo con un brillo en la hoja)."""
+    from PIL import ImageDraw
+    hero = Image.open('assets/img/personaje/protagonista/male_hero.png').convert('RGBA')
+    idle = hero.crop((0, 128, 128, 256))
+    skin, skin_dark = idle.getpixel((64, 66)), idle.getpixel((65, 58))
+    outline, blade_c, edge = (18, 16, 28, 255), (214, 226, 238, 255), (150, 170, 196, 255)
+    guard_c, hilt = (200, 160, 60, 255), (96, 58, 40, 255)
+    hx, hy = 71, 64  # mano
+    n = 20
+    blade = [(round(hx + (-6) * i / n), round(hy - 2 + (-20) * i / n)) for i in range(n + 1)]
+    sheet = Image.new('RGBA', (256, 128))
+    for k in range(2):
+        f = Image.new('RGBA', (128, 128))
+        f.paste(idle, (0, 2))  # agachado 2 px
+        d = ImageDraw.Draw(f)
+        for (x, y) in blade:
+            d.rectangle((x - 1, y - 1, x + 2, y + 1), fill=outline)
+        d.rectangle((hx - 3, hy - 2, hx + 3, hy + 1), fill=outline)
+        d.rectangle((hx - 1, hy, hx + 2, hy + 5), fill=outline)
+        for (x, y) in blade:
+            d.point((x, y), fill=blade_c)
+            d.point((x + 1, y), fill=edge)
+        d.line((hx - 2, hy - 1, hx + 2, hy - 1), fill=guard_c)
+        d.rectangle((hx, hy, hx + 1, hy + 4), fill=hilt)
+        d.rectangle((hx - 1, hy + 1, hx + 2, hy + 3), fill=skin)
+        d.point((hx + 2, hy + 3), fill=skin_dark)
+        if k == 1:
+            for (x, y) in blade[6:8]:
+                d.point((x, y), fill=(255, 255, 255, 255))
+        sheet.paste(f, (k * 128, 0))
+    sheet.save('assets/img/personaje/protagonista/hero_block.png')
+
+
 HEART = ["..XX.XX..", ".XOOXOOX.", "XOWOOOOOX", "XOOOOOOOX",
          ".XOOOOOX.", "..XOOOX..", "...XOX...", "....X...."]
 
@@ -145,5 +180,6 @@ if __name__ == '__main__':
     campfire_off()
     torii()
     hero_death()
+    hero_block()
     hearts()
     print('Sprites generados.')

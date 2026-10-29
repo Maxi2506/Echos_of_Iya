@@ -33,8 +33,8 @@ func open() -> void:
 	if not enabled:
 		return
 	# Recordatorio de teclas; se arma acá para que salga en el idioma elegido
-	controls_hint.text = "← → %s  •  %s %s  •  X %s  •  Shift %s  •  M %s  •  Esc %s" % [
-		tr("Move"), tr("Space"), tr("Jump"), tr("Attack"), tr("Stealth"), tr("Map"), tr("Resume")]
+	controls_hint.text = "← → %s  •  %s %s  •  X %s  •  C %s  •  Shift %s  •  M %s  •  Esc %s" % [
+		tr("Move"), tr("Space"), tr("Jump"), tr("Attack"), tr("Block"), tr("Stealth"), tr("Map"), tr("Resume")]
 	show()
 	get_tree().paused = true
 	resume_button.grab_focus()

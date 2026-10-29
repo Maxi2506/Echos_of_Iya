@@ -1,10 +1,13 @@
-[gd_scene load_steps=68 format=3 uid="uid://chfa0s53caygn"]
+[gd_scene load_steps=74 format=3 uid="uid://chfa0s53caygn"]
 
 [ext_resource type="Texture2D" uid="uid://dfffajyoft34h" path="res://assets/img/personaje/protagonista/male_hero.png" id="1_f50pn"]
 [ext_resource type="Script" uid="uid://qpjpu1m86lx2" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="AudioStream" uid="uid://iufy2hgq34gb" path="res://assets/sfx/sword_slash.wav" id="2_slash"]
 [ext_resource type="Texture2D" uid="uid://bfdhnwqu6how2" path="res://assets/img/personaje/protagonista/hero_death.png" id="3_death"]
 [ext_resource type="AudioStream" uid="uid://b106bngye1n3w" path="res://assets/sfx/player_hurt.wav" id="4_hurt"]
+[ext_resource type="Texture2D" uid="uid://bpmu8oviqraeh" path="res://assets/img/personaje/protagonista/hero_block.png" id="5_block"]
+[ext_resource type="AudioStream" uid="uid://dnknn24ycobe6" path="res://assets/sfx/block_clang.wav" id="6_clang"]
+[ext_resource type="AudioStream" uid="uid://dvi5se2k8s2ja" path="res://assets/sfx/heal.wav" id="7_heal"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
 atlas = ExtResource("1_f50pn")
@@ -234,6 +237,14 @@ region = Rect2(896, 0, 128, 128)
 atlas = ExtResource("3_death")
 region = Rect2(1024, 0, 128, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_block0"]
+atlas = ExtResource("5_block")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_block1"]
+atlas = ExtResource("5_block")
+region = Rect2(128, 0, 128, 128)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fhkdx"]
 animations = [{
 "frames": [{
@@ -441,6 +452,17 @@ animations = [{
 "loop": false,
 "name": &"death",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_block0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_block1")
+}],
+"loop": true,
+"name": &"block",
+"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f50pn"]
@@ -459,6 +481,9 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_chispas"]
+colors = PackedColorArray(1, 1, 0.85, 1, 1, 0.75, 0.3, 0)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 5
@@ -504,5 +529,28 @@ color = Color(1, 0.92, 0.75, 1)
 energy = 0.75
 texture = SubResource("GradientTexture2D_linterna")
 texture_scale = 2.6
+
+[node name="BlockSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_clang")
+volume_db = -4.0
+bus = &"SFX"
+
+[node name="HealSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_heal")
+bus = &"SFX"
+
+[node name="BlockSparks" type="CPUParticles2D" parent="."]
+position = Vector2(8, -24)
+emitting = false
+amount = 10
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(1, -0.3)
+spread = 55.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 40.0
+initial_velocity_max = 90.0
+color_ramp = SubResource("Gradient_chispas")
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

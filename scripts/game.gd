@@ -38,6 +38,11 @@ func _ready() -> void:
 	# Por si se salió al menú en medio de un efecto de cámara lenta
 	Engine.time_scale = 1.0
 
+	# Según la dificultad, algunos enemigos no aparecen
+	for enemy in _in_level("enemies"):
+		if enemy.min_difficulty > Settings.difficulty_index():
+			enemy.queue_free()
+
 	# Los totales se cuentan antes de cargar la partida, porque al cargar se borra lo ya hecho
 	total_crystals = _in_level("crystals").size()
 	total_enemies = _in_level("enemies").size()

@@ -9,8 +9,9 @@ const VOLUME_LEVELS = [100, 75, 50, 25, 0]
 
 const DIFFICULTIES = ["easy", "normal", "hard"]
 const DIFFICULTY_NAMES = {"easy": "Easy", "normal": "Normal", "hard": "Hard"}
-# Multiplicador de la velocidad de los enemigos según la dificultad
-const ENEMY_SPEED = {"easy": 0.7, "normal": 1.0, "hard": 1.4}
+# La dificultad cambia la cantidad de enemigos (cada enemigo tiene una dificultad mínima
+# en la que aparece: fácil ~50 %, normal ~75 %, difícil todos) y un poco su velocidad.
+const ENEMY_SPEED = {"easy": 0.9, "normal": 1.0, "hard": 1.1}
 
 const LANGUAGES = ["es", "en"]
 # Cada idioma se muestra con su propio nombre, así se reconoce aunque no lo entiendas
@@ -49,7 +50,8 @@ const SPANISH = {
 	"Total deaths": "Muertes totales",
 	"Total time": "Tiempo total",
 	"Map": "Mapa",
-	"Gamepad: A jump · X attack · LB stealth · Start pause · Select map": "Joystick: A saltar · X atacar · LB sigilo · Start pausa · Select mapa",
+	"Block": "Defenderse",
+	"Gamepad: A jump · X attack · B block · LB stealth · Start pause · Select map": "Joystick: A saltar · X atacar · B defenderse · LB sigilo · Start pausa · Select mapa",
 	"M or Esc to close": "M o Esc para cerrar",
 	"You": "Vos",
 	"Campfire": "Fogata",
@@ -97,6 +99,11 @@ func next_difficulty() -> void:
 func next_language() -> void:
 	language = _next(LANGUAGES, language)
 	_apply_and_save()
+
+
+## 0 = fácil, 1 = normal, 2 = difícil
+func difficulty_index() -> int:
+	return DIFFICULTIES.find(difficulty)
 
 
 func enemy_speed_multiplier() -> float:

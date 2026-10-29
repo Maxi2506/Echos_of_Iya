@@ -125,6 +125,26 @@ def level_complete():
     _tone_sequence('level_complete.wav', [392, 523, 659, 784, 659, 1047], 13, note_len=0.15, tail=0.9)
 
 
+def block_clang():
+    """Choque metálico de la espada al bloquear: tonos agudos inarmónicos con caída rápida."""
+    random.seed(14)
+    n = int(RATE * 0.35)
+    out = []
+    for i in range(n):
+        t = i / RATE
+        env = math.exp(-t * 14)
+        tone = (math.sin(2 * math.pi * 1210 * t) * 0.5 + math.sin(2 * math.pi * 1870 * t) * 0.35
+                + math.sin(2 * math.pi * 2960 * t) * 0.2)
+        click = random.uniform(-1, 1) * math.exp(-t * 120)
+        out.append(tone * env + click * 0.6)
+    save('block_clang.wav', out)
+
+
+def heal():
+    """Curación: dos notas suaves que suben."""
+    _tone_sequence('heal.wav', [660, 880, 1320], 15, note_len=0.07, tail=0.35)
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     sword_slash()
@@ -134,4 +154,6 @@ if __name__ == '__main__':
     enemy_hit()
     secret_found()
     level_complete()
+    block_clang()
+    heal()
     print('Sonidos generados.')
